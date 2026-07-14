@@ -234,27 +234,55 @@
           <h2>Selected builds.</h2>
         </div>
       </div>
-      <div class="projects-grid">
-        <div class="card">
-          <div class="card-id">DRS-01 · CASE FILE</div>
-          <h3>DRS Runout Review System</h3>
-          <p>A desktop app that recreates cricket's Decision Review System runout check — a Python and Tkinter tool for stepping through a run-out and reaching a clear, defensible call.</p>
-          <div class="stack"><span>Python</span><span>Tkinter</span><span>GUI Logic</span></div>
-          <a href="#" class="card-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
-        </div>
-        <div class="card">
-          <div class="card-id">ISRO-02 · CASE FILE</div>
-          <h3>ISRO Website Redesign</h3>
-          <p>A ground-up redesign concept for the ISRO public website — cleaner information hierarchy, faster navigation, and layouts that hold up from a launch console to a phone screen.</p>
-          <div class="stack"><span>HTML/CSS</span><span>JavaScript</span><span>Responsive Design</span></div>
-          <a href="#" class="card-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
-        </div>
-        <div class="card">
-          <div class="card-id">LAB-03 · CASE FILE</div>
-          <h3>Advanced Pong (pygame)</h3>
-          <p>A feature-rich take on Pong in Python — object-oriented structure, adjustable AI difficulty, particle effects, and a proper finite state machine driving game flow.</p>
-          <div class="stack"><span>Python</span><span>pygame</span><span>OOP</span><span>FSM</span></div>
-          <a href="#" class="card-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+    </div>
+
+    <!-- Pinned reveal: illustration stays fixed on the right while each
+         project pops into the same slot on the left as you scroll. -->
+    <div class="work-storyline" id="workStoryline">
+      <div class="work-sticky">
+        <div class="wrap work-sticky-grid">
+
+          <div class="work-cards-stack" id="workCards">
+            <div class="work-card" data-card="0">
+              <span class="work-card-num">01</span>
+              <div class="work-card-id mono">DRS-01 · CASE FILE</div>
+              <h3>DRS Runout Review System</h3>
+              <p>A desktop app that recreates cricket's Decision Review System runout check — a Python and Tkinter tool for stepping through a run-out and reaching a clear, defensible call.</p>
+              <div class="stack"><span>Python</span><span>Tkinter</span><span>GUI Logic</span></div>
+              <a href="#" class="work-card-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+            </div>
+
+            <div class="work-card" data-card="1">
+              <span class="work-card-num">02</span>
+              <div class="work-card-id mono">ISRO-02 · CASE FILE</div>
+              <h3>ISRO Website Redesign</h3>
+              <p>A ground-up redesign concept for the ISRO public website — cleaner information hierarchy, faster navigation, and layouts that hold up from a launch console to a phone screen.</p>
+              <div class="stack"><span>HTML/CSS</span><span>JavaScript</span><span>Responsive Design</span></div>
+              <a href="#" class="work-card-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+            </div>
+
+            <div class="work-card" data-card="2">
+              <span class="work-card-num">03</span>
+              <div class="work-card-id mono">LAB-03 · CASE FILE</div>
+              <h3>Advanced Pong (pygame)</h3>
+              <p>A feature-rich take on Pong in Python — object-oriented structure, adjustable AI difficulty, particle effects, and a proper finite state machine driving game flow.</p>
+              <div class="stack"><span>Python</span><span>pygame</span><span>OOP</span><span>FSM</span></div>
+              <a href="#" class="work-card-link">View project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
+            </div>
+          </div>
+
+          <div class="work-visual">
+            <img src="work-illustration.png" alt="Case-file illustration">
+            <div class="work-visual-meta">
+              <span class="work-counter mono"><b id="workCounter">01</b> / 03</span>
+              <div class="work-dots">
+                <span class="work-dot active"></span>
+                <span class="work-dot"></span>
+                <span class="work-dot"></span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

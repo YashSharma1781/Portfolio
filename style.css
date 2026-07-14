@@ -417,6 +417,84 @@
   .review-chip .pip.pulse{ animation:pulse 1s ease-in-out infinite; }
   @keyframes pulse{ 0%,100%{ opacity:1;} 50%{ opacity:.25;} }
 
+  /* ================================================================
+     WORK — PINNED REVEAL
+     A tall scroll track with a sticky two-column stage: the case-file
+     illustration stays fixed on the right while, on the left, each
+     project pops into the same slot as the previous one steps out.
+  ================================================================= */
+  .work-storyline{ position:relative; height:360vh; }
+  .work-sticky{
+    position:sticky; top:0; height:100vh;
+    display:flex; align-items:center;
+    overflow:hidden;
+  }
+  .work-sticky-grid{
+    width:100%; display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center;
+  }
+
+  .work-cards-stack{ position:relative; min-height:440px; }
+  .work-card{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; justify-content:center; gap:20px;
+    opacity:0; transform:scale(0.88) translateY(30px);
+    transition: opacity .55s cubic-bezier(.22,.9,.32,1), transform .55s cubic-bezier(.22,.9,.32,1);
+    pointer-events:none; will-change:opacity, transform;
+  }
+  .work-card.is-active{
+    opacity:1; transform:scale(1) translateY(0);
+    pointer-events:auto; z-index:3;
+    transition: opacity .6s cubic-bezier(.34,1.56,.64,1), transform .6s cubic-bezier(.34,1.56,.64,1);
+  }
+  .work-card.is-prev{ opacity:0; transform:scale(0.92) translateY(-34px); z-index:1; }
+  .work-card.is-next{ opacity:0; transform:scale(0.88) translateY(34px); z-index:1; }
+
+  .work-card-num{
+    position:absolute; top:-6%; right:-2%; font-family:var(--font-display); font-weight:700;
+    font-size:clamp(4rem, 9vw, 7.5rem); line-height:1; color:color-mix(in srgb, var(--paper) 6%, transparent);
+    user-select:none; z-index:-1;
+  }
+  .work-card-id{ font-family:var(--font-mono); font-size:0.76rem; color:var(--accent); }
+  .work-card h3{ font-size:clamp(1.6rem, 3vw, 2.15rem); font-weight:700; letter-spacing:-0.01em; max-width:14ch; }
+  .work-card p{ color:var(--fog); font-size:1rem; max-width:46ch; }
+  .work-card .stack{ display:flex; flex-wrap:wrap; gap:8px; }
+  .work-card .stack span{ font-family:var(--font-mono); font-size:0.68rem; padding:5px 10px; border-radius:999px; background:color-mix(in srgb, var(--fog) 16%, transparent); color:var(--fog); }
+  .work-card-link{ font-size:0.9rem; font-weight:600; display:inline-flex; align-items:center; gap:6px; margin-top:4px; color:var(--accent); width:fit-content; }
+  .work-card-link svg{ transition:transform .2s ease; }
+  .work-card-link:hover svg{ transform:translate(3px,-3px); }
+
+  .work-visual{
+    position:relative; height:min(72vh, 640px); border-radius:20px; overflow:hidden;
+    border:1px solid var(--hair); background:var(--panel);
+  }
+  .work-visual img{ width:100%; height:100%; object-fit:cover; object-position:top center; display:block; filter:grayscale(1) contrast(1.05); }
+  .work-visual::after{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.65) 100%);
+  }
+  .work-visual-meta{
+    position:absolute; left:22px; right:22px; bottom:20px; z-index:2;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .work-counter{ font-family:var(--font-mono); font-size:0.78rem; color:#f2f3f5; }
+  .work-counter b{ font-size:0.9rem; }
+  .work-dots{ display:flex; gap:8px; }
+  .work-dot{ width:20px; height:3px; border-radius:2px; background:rgba(242,243,245,0.28); transition:background .3s ease, width .3s ease; }
+  .work-dot.active{ background:var(--accent); width:30px; }
+
+  @media (max-width:900px){
+    .work-storyline{ height:auto; }
+    .work-sticky{ position:static; height:auto; padding:0 0 20px; }
+    .work-sticky-grid{ grid-template-columns:1fr; gap:36px; }
+    .work-visual{ order:-1; height:320px; }
+    .work-cards-stack{ position:static; min-height:auto; display:flex; flex-direction:column; gap:26px; }
+    .work-card{
+      position:static; opacity:1 !important; transform:none !important; pointer-events:auto !important;
+      padding:24px; border:1px solid var(--hair); border-radius:16px; background:var(--panel);
+    }
+    .work-card-num{ display:none; }
+  }
+
   .projects-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
   .card{ background:var(--panel); border:1px solid var(--hair); border-radius:16px; padding:28px; display:flex; flex-direction:column; gap:16px; transition:.25s ease; }
   .card:hover{ border-color:color-mix(in srgb, var(--accent) 40%, transparent); transform:translateY(-4px); background:var(--panel-2); }
@@ -471,6 +549,7 @@
     .id-card-img{ max-width:60%; max-height:300px; }
     .orbit-system{ max-width:320px; }
     .tech-stack-head{ gap:10px; margin-bottom:28px; }
+    .work-card h3{ max-width:100%; }
   }
   @media (max-width:400px){
     .logo{ font-size:1.02rem; }

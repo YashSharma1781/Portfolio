@@ -124,3 +124,61 @@ window.addEventListener('scroll', computeTarget, { passive: true });
 window.addEventListener('resize', computeTarget);
 computeTarget();
 requestAnimationFrame(loop);
+
+// ---- WORK section: sticky pinned illustration + pop-in project cards ----
+const workStoryline = document.getElementById('workStoryline');
+if (workStoryline) {
+  const workCards = Array.from(workStoryline.querySelectorAll('.work-card'));
+  const workDots = Array.from(workStoryline.querySelectorAll('.work-dot'));
+  const workCounter = document.getElementById('workCounter');
+
+  let workTarget = 0;
+  let workCurrent = 0;
+
+  function computeWorkTarget(){
+    const rect = workStoryline.getBoundingClientRect();
+    const total = workStoryline.offsetHeight - window.innerHeight;
+    let scrolled = -rect.top;
+    scrolled = Math.max(0, Math.min(scrolled, total));
+    workTarget = total > 0 ? scrolled / total : 0;
+  }
+
+  function applyWorkProgress(progress){
+    const n = workCards.length;
+    let idx = Math.min(n - 1, Math.floor(progress * n));
+
+    workCards.forEach((card, i) => {
+      const start = i / n, end = (i + 1) / n;
+      const local = (progress - start) / (end - start);
+      card.classList.remove('is-active', 'is-prev', 'is-next');
+      if (progress >= start && progress < end) {
+        card.classList.add('is-active');
+      } else if (i < idx || (i === n - 1 && progress >= end)) {
+        card.classList.add('is-prev');
+      } else {
+        card.classList.add('is-next');
+      }
+      void local;
+    });
+
+    workDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    if (workCounter) workCounter.textContent = String(idx + 1).padStart(2, '0');
+  }
+
+  function workLoop(){
+    if (reduceMotion) {
+      workCurrent = workTarget;
+    } else {
+      workCurrent += (workTarget - workCurrent) * 0.16;
+      if (Math.abs(workTarget - workCurrent) < 0.0006) workCurrent = workTarget;
+    }
+    applyWorkProgress(workCurrent);
+    requestAnimationFrame(workLoop);
+  }
+
+  window.addEventListener('scroll', computeWorkTarget, { passive: true });
+  window.addEventListener('resize', computeWorkTarget);
+  computeWorkTarget();
+  applyWorkProgress(0);
+  requestAnimationFrame(workLoop);
+}
