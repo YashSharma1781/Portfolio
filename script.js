@@ -32,19 +32,6 @@ document.addEventListener('keydown', (e) => {
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Theme toggle (persists across visits)
-const root = document.documentElement;
-const themeToggle = document.getElementById('themeToggle');
-try {
-  const saved = localStorage.getItem('ys-theme');
-  if (saved) root.setAttribute('data-theme', saved);
-} catch (e) {}
-themeToggle.addEventListener('click', () => {
-  const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-  root.setAttribute('data-theme', next);
-  try { localStorage.setItem('ys-theme', next); } catch (e) {}
-});
-
 // DRS review chip
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const chip = document.getElementById('reviewChip');
@@ -125,12 +112,15 @@ window.addEventListener('resize', computeTarget);
 computeTarget();
 requestAnimationFrame(loop);
 
-// ---- WORK section: sticky pinned illustration + pop-in project cards ----
+// ---- WORK section: full-bleed pinned illustration + milestone timeline ----
 const workStoryline = document.getElementById('workStoryline');
 if (workStoryline) {
   const workCards = Array.from(workStoryline.querySelectorAll('.work-card'));
-  const workDots = Array.from(workStoryline.querySelectorAll('.work-dot'));
+  const workDots = Array.from(workStoryline.querySelectorAll('.work-timeline-dot'));
+  const workFill = document.getElementById('workTimelineFill');
   const workCounter = document.getElementById('workCounter');
+  const workCategory = document.getElementById('workCategory');
+  const workCategories = workCards.map(c => (c.querySelector('.work-card-id')?.textContent || '').split('·')[0].trim());
 
   let workTarget = 0;
   let workCurrent = 0;
@@ -149,7 +139,6 @@ if (workStoryline) {
 
     workCards.forEach((card, i) => {
       const start = i / n, end = (i + 1) / n;
-      const local = (progress - start) / (end - start);
       card.classList.remove('is-active', 'is-prev', 'is-next');
       if (progress >= start && progress < end) {
         card.classList.add('is-active');
@@ -158,11 +147,12 @@ if (workStoryline) {
       } else {
         card.classList.add('is-next');
       }
-      void local;
     });
 
     workDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    if (workFill && n > 1) workFill.style.height = (idx / (n - 1)) * 100 + '%';
     if (workCounter) workCounter.textContent = String(idx + 1).padStart(2, '0');
+    if (workCategory) workCategory.textContent = workCategories[idx] || '';
   }
 
   function workLoop(){
