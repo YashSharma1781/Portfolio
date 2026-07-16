@@ -407,7 +407,11 @@ footer{ padding:34px 0 50px; border-top:1px solid var(--hair); }
   section{ padding:76px 0; }
   .projects-grid{ grid-template-columns:1fr; }
   .contact-panel{ padding:26px; border-radius:18px; gap:28px; }
+  .contact-panel .corner{ display:none; }
   .contact-cta{ width:100%; justify-content:center; }
+  .contact-row{ padding:14px; gap:12px; }
+  .contact-row-icon{ width:34px; height:34px; }
+  .contact-value{ white-space:normal; overflow-wrap:anywhere; text-overflow:clip; font-size:0.86rem; }
   .storyline{ height:520vh; }
   .browser-mock{ height:40vh; }
   .float-chip{ font-size:0.6rem; padding:8px 10px; }
@@ -466,8 +470,15 @@ footer{ padding:34px 0 50px; border-top:1px solid var(--hair); }
     pointer-events:none;
     will-change:opacity,transform;
 
-    padding:16px 16px;
+    border:none;
+    background:none;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    padding:0 6px;
 }
+  .work-card-more{
+    border:none;
+  }
 
 .work-card.side-left{
     left:50%;
